@@ -1,20 +1,17 @@
-// index.js
-const express = require('express');
+const express = require("express");
+const path = require("path");
+
 const app = express();
-const path = require('path');
+const port = process.env.PORT || 3000;
 
-// Puerto asignado por Railway o 3000 localmente
-const PORT = process.env.PORT || 3000;
+// Servir archivos estáticos desde la carpeta actual
+app.use(express.static(path.join(__dirname)));
 
-// Servir archivos estáticos (CSS, imágenes, etc.) desde "public"
-app.use(express.static('public'));
-
-// Ruta principal: cargar tu archivo "cecmex.html"
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'cecmex.html'));
+// Servir el HTML principal (cecmex.html)
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "cecmex.html"));
 });
 
-// Iniciar servidor
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+app.listen(port, () => {
+  console.log(`Servidor ejecutándose en el puerto ${port}`);
 });
